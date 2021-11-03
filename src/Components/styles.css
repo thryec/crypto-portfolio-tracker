@@ -1,0 +1,27 @@
+:root {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Nav Bar */
+
+nav {
+  display: flex;
+  align-items: center;
+  padding: 10px 0 0 50px;
+}
+
+a {
+  text-decoration: none;
+}
+
+nav h2 {
+  padding: 0 40px 0 0;
+  color: black;
+}
+
+/* Main  */
+
+main {
+  align-items: center;
+  padding: 10px 0 0 50px;
+}
