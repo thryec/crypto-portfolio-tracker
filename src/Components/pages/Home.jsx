@@ -1,6 +1,14 @@
 import { useState } from 'react'
 import CoinRowItem from './CoinRowItem'
-import WatchlistContext from '../context/WatchlistContext'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
+
+// git branch test
 
 const Home = (props) => {
   const [watchlist, setWatchlist] = useState([])
