@@ -1,12 +1,9 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
 
 const CoinRowItem = (props) => {
   // console.log('CoinRowItem props: ', props)
@@ -18,16 +15,22 @@ const CoinRowItem = (props) => {
 
   return (
     <>
-      <Link to={'/coin/' + props.tokenId}>
-        <tr>
-          <td>
-            <button onClick={addToWatchlist}>Add</button>
-          </td>
-          <td>{props.tokenName} </td>|<td> {props.currentPrice} </td>|
-          {props.change24h} |{props.marketCap} | {props.volume} |
-          {props.circSupply} {props.symbol.toUpperCase()}
-        </tr>
-      </Link>
+      <TableRow>
+        <TableCell>
+          <Button onClick={addToWatchlist}>Add</Button>
+        </TableCell>
+        <TableCell>
+          <Link to={'/coin/' + props.tokenId}>{props.tokenName}</Link>
+        </TableCell>
+        <TableCell>{props.currentPrice}</TableCell>
+        <TableCell>{props.change24h}</TableCell>
+        <TableCell>{props.marketCap}</TableCell>
+        <TableCell>{props.volume}</TableCell>
+        <TableCell>
+          {Math.floor(props.circSupply).toLocaleString()}{' '}
+          {props.symbol.toUpperCase()}
+        </TableCell>
+      </TableRow>
     </>
   )
 }

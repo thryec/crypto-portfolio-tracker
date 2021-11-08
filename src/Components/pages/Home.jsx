@@ -8,8 +8,6 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 
-// git branch test
-
 const Home = (props) => {
   const [watchlist, setWatchlist] = useState([])
   console.log('Home watchlist: ', watchlist)
@@ -50,17 +48,22 @@ const Home = (props) => {
       {props.isLoaded ? (
         <div>
           <h1>All Coins</h1>
-          <table>
-            <tr>
-              <th>Name</th>
-              <th>Price</th>
-              <th>24h%</th>
-              <th>Market Cap</th>
-              <th>Volume</th>
-              <th>Circulating Supply</th>
-            </tr>
-            {fetchedData}
-          </table>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Watchlist</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>24h%</TableCell>
+                  <TableCell>Market Cap</TableCell>
+                  <TableCell>Volume</TableCell>
+                  <TableCell>Circulating Supply</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>{fetchedData}</TableBody>
+            </Table>
+          </TableContainer>
 
           {/* {allCoins} */}
         </div>
