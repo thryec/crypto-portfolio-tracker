@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 
 const CoinRowItem = (props) => {
@@ -10,7 +9,11 @@ const CoinRowItem = (props) => {
 
   const addToWatchlist = () => {
     console.log('watchlist button clicked', props.tokenId)
-    props.setWatchlist([...props.watchlist, props.tokenId])
+    if (props.watchlist.includes(props.tokenId)) {
+      return
+    } else {
+      props.setWatchlist([...props.watchlist, props.tokenId])
+    }
   }
 
   return (

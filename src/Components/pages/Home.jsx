@@ -6,14 +6,13 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
 
 const Home = (props) => {
   const [watchlist, setWatchlist] = useState([])
   console.log('Home watchlist: ', watchlist)
 
+  console.log('allMarketData: ', props.allMarketData)
   const fetchedData = props.allMarketData.map((el, key) => {
-    console.log('coin data:', el)
     return (
       <>
         <CoinRowItem
@@ -64,7 +63,6 @@ const Home = (props) => {
               <TableBody>{fetchedData}</TableBody>
             </Table>
           </TableContainer>
-
           {/* {allCoins} */}
         </div>
       ) : (
