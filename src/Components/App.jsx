@@ -9,12 +9,13 @@ import { useState, useEffect } from 'react'
 import { Route, Link, Switch, Redirect } from 'react-router-dom'
 import { fetchCoinMarketData, fetchCoinList } from './pages/fetchData'
 
-const dummyList = ['cardano', 'bitcoin', 'ethereum']
+const dummyList = ['bitcoin', 'ethereum', 'cardano']
 
 const App = () => {
   const [coinList, setCoinList] = useState([])
   const [allMarketData, setAllMarketData] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
+  const [watchlist, setWatchlist] = useState([])
 
   const fetchAllMarketData = async () => {
     let allData = []
@@ -66,10 +67,12 @@ const App = () => {
               coinList={coinList}
               allMarketData={allMarketData}
               isLoaded={isLoaded}
+              watchlist={watchlist}
+              setWatchlist={setWatchlist}
             />
           </Route>
           <Route exact path="/watchlist">
-            <Watchlist />
+            <Watchlist watchlist={watchlist} />
           </Route>
           <Route exact path="/portfolio">
             <Portfolio />

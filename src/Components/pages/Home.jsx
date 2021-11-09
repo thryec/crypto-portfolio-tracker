@@ -8,10 +8,10 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
 const Home = (props) => {
-  const [watchlist, setWatchlist] = useState([])
-  console.log('Home watchlist: ', watchlist)
+  // const [watchlist, setWatchlist] = useState([])
+  // console.log('Home watchlist: ', props.watchlist)
+  // console.log('allMarketData: ', props.allMarketData)
 
-  console.log('allMarketData: ', props.allMarketData)
   const fetchedData = props.allMarketData.map((el, key) => {
     return (
       <>
@@ -26,8 +26,8 @@ const Home = (props) => {
           change24h={el[0].price_change_percentage_24h}
           volume={el[0].total_volume}
           circSupply={el[0].circulating_supply}
-          watchlist={watchlist}
-          setWatchlist={setWatchlist}
+          watchlist={props.watchlist}
+          setWatchlist={props.setWatchlist}
         />
       </>
     )

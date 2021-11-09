@@ -30,8 +30,7 @@ const CoinRowItem = (props) => {
         <TableCell>{props.marketCap}</TableCell>
         <TableCell>{props.volume}</TableCell>
         <TableCell>
-          {Math.floor(props.circSupply).toLocaleString()}{' '}
-          {props.symbol.toUpperCase()}
+          {Math.floor(props.circSupply).toLocaleString()} {props.symbol}
         </TableCell>
       </TableRow>
     </>
