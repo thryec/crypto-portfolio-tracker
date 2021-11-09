@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import CoinRowItem from './CoinRowItem'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -6,15 +6,39 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import WatchlistContext from '../context/WatchlistContext'
+import { fetchCoinMarketData } from './fetchData'
+import Button from '@mui/material/Button'
 
 const Watchlist = (props) => {
-  const [watchlistData, setWatchlistData] = useState([])
-  const watchlist = useContext(WatchlistContext)
+  const [watchlistData, setWatchlistData] = useState()
+  const [dataFetched, setDataFetched] = useState(false)
 
   console.log('watchlist component:', props.watchlist)
 
-  const watchlistItems = props.watchlist.map((el, key) => {
+  const fetchWatchlistMarketData = async () => {
+    let data = []
+    for (let coin of props.watchlist) {
+      const newData = await fetchCoinMarketData(coin)
+      data.push(newData)
+      console.log('fetched data: ', coin, data)
+    }
+    setWatchlistData(data)
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetchWatchlistMarketData()
+        // await renderWatchlistData()
+        setDataFetched(true)
+      } catch (err) {
+        console.log('failed to fetch watchlist data with error: ', err)
+      }
+    }
+    fetchData()
+  }, [])
+
+  const watchlistItems = watchlistData.map((el, key) => {
     return (
       <>
         <CoinRowItem
@@ -52,7 +76,9 @@ const Watchlist = (props) => {
                 <TableCell>Circulating Supply</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>{watchlistItems}</TableBody>
+            <TableBody>
+              {dataFetched ? watchlistItems : <h1>Loading...</h1>}
+            </TableBody>
           </Table>
         </TableContainer>
         {/* {allCoins} */}
