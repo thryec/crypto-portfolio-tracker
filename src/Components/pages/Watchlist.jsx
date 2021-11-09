@@ -7,7 +7,6 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import { fetchCoinMarketData } from './fetchData'
-import Button from '@mui/material/Button'
 
 const Watchlist = (props) => {
   const [watchlistData, setWatchlistData] = useState()
@@ -77,7 +76,7 @@ const Watchlist = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {dataFetched ? watchlistItems : <h1>Loading...</h1>}
+              {dataFetched ? <h1>Data</h1> : <h1>Loading...</h1>}
             </TableBody>
           </Table>
         </TableContainer>

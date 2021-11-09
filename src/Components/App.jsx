@@ -6,7 +6,7 @@ import Charts from './pages/Charts'
 import CoinInfo from './modules/CoinInfo'
 import Newsfeed from './pages/Newsfeed'
 import { useState, useEffect } from 'react'
-import { Route, Link, Switch, Redirect } from 'react-router-dom'
+import { Route, Link, Routes, Navigate } from 'react-router-dom'
 import { fetchCoinMarketData, fetchCoinList } from './pages/fetchData'
 
 const dummyList = ['bitcoin', 'ethereum', 'cardano']
@@ -61,33 +61,29 @@ const App = () => {
       </nav>
       <hr />
       <main>
-        <Switch>
-          <Route exact path="/">
-            <Home
-              coinList={coinList}
-              allMarketData={allMarketData}
-              isLoaded={isLoaded}
-              watchlist={watchlist}
-              setWatchlist={setWatchlist}
-            />
-          </Route>
-          <Route exact path="/watchlist">
-            <Watchlist watchlist={watchlist} />
-          </Route>
-          <Route exact path="/portfolio">
-            <Portfolio />
-          </Route>
-          <Route exact path="/charts">
-            <Charts />
-          </Route>
-          <Route path="/coin/:name">
-            <CoinInfo />
-          </Route>
-          <Route exact path="/news">
-            <Newsfeed />
-          </Route>
-          <Redirect to="/" />
-        </Switch>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                coinList={coinList}
+                allMarketData={allMarketData}
+                isLoaded={isLoaded}
+                watchlist={watchlist}
+                setWatchlist={setWatchlist}
+              />
+            }
+          />
+          <Route path="/*" element={<Navigate to="/" />} />
+          <Route
+            path="/watchlist"
+            element={<Watchlist watchlist={watchlist} />}
+          />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/charts" element={<Charts />} />
+          <Route path="/coin/:name" element={<CoinInfo />} />
+          <Route path="/news" element={<Newsfeed />} />
+        </Routes>
       </main>
     </>
   )
