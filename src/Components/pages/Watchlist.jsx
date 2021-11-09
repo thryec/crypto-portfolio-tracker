@@ -37,8 +37,8 @@ const Watchlist = (props) => {
     fetchData()
   }, [])
 
-  const watchlistItems = watchlistData.map((el, key) => {
-    return (
+  const renderWatchlistData = async () => {
+    return watchlistData.map((el, key) => (
       <>
         <CoinRowItem
           key={key}
@@ -55,8 +55,8 @@ const Watchlist = (props) => {
           setWatchlist={props.setWatchlist}
         />
       </>
-    )
-  })
+    ))
+  }
 
   return (
     <>
@@ -76,7 +76,11 @@ const Watchlist = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {dataFetched ? <h1>Data</h1> : <h1>Loading...</h1>}
+              {dataFetched ? (
+                <h1>{renderWatchlistData}</h1>
+              ) : (
+                <h1>Loading...</h1>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
