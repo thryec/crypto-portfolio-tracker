@@ -7,7 +7,11 @@ import CoinInfo from './modules/CoinInfo'
 import Newsfeed from './pages/Newsfeed'
 import { useState, useEffect } from 'react'
 import { Route, Link, Routes, Navigate } from 'react-router-dom'
-import { fetchCoinMarketData, fetchCoinList } from './pages/fetchData'
+import {
+  checkStatus,
+  fetchCoinMarketData,
+  fetchCoinList,
+} from './pages/fetchData'
 
 const dummyList = ['bitcoin', 'ethereum', 'cardano']
 
@@ -19,7 +23,7 @@ const App = () => {
 
   const fetchAllMarketData = async () => {
     let allData = []
-    for (let coin of dummyList) {
+    for (let coin of coinList) {
       const data = await fetchCoinMarketData(coin)
       allData.push(data)
     }
@@ -28,13 +32,17 @@ const App = () => {
 
   useEffect(() => {
     const fetchSample = async () => {
-      try {
-        const coinList = await fetchCoinList()
-        setCoinList(coinList)
-        await fetchAllMarketData()
-        setIsLoaded(true)
-      } catch (err) {
-        console.log(err)
+      if (await checkStatus()) {
+        try {
+          const coinList = await fetchCoinList()
+          setCoinList(coinList)
+          await fetchAllMarketData()
+          setIsLoaded(true)
+        } catch (err) {
+          console.log(err)
+        }
+      } else {
+        alert('API is down')
       }
     }
     fetchSample()

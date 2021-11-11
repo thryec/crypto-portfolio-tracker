@@ -38,23 +38,21 @@ const Watchlist = (props) => {
   }, [])
 
   const renderWatchlistData = async () => {
-    return watchlistData.map((el, key) => (
-      <>
-        <CoinRowItem
-          key={key}
-          tokenName={el[0].name}
-          tokenId={el[0].id}
-          symbol={el[0].symbol}
-          currentPrice={el[0].current_price}
-          marketCap={el[0].market_cap}
-          mCapRank={el[0].market_cap_rank}
-          change24h={el[0].price_change_percentage_24h}
-          volume={el[0].total_volume}
-          circSupply={el[0].circulating_supply}
-          watchlist={props.watchlist}
-          setWatchlist={props.setWatchlist}
-        />
-      </>
+    watchlistData.map((el, key) => (
+      <CoinRowItem
+        key={key}
+        tokenName={el[0].name}
+        tokenId={el[0].id}
+        symbol={el[0].symbol}
+        currentPrice={el[0].current_price}
+        marketCap={el[0].market_cap}
+        mCapRank={el[0].market_cap_rank}
+        change24h={el[0].price_change_percentage_24h}
+        volume={el[0].total_volume}
+        circSupply={el[0].circulating_supply}
+        watchlist={props.watchlist}
+        setWatchlist={props.setWatchlist}
+      />
     ))
   }
 
