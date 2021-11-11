@@ -9,26 +9,25 @@ import TableRow from '@mui/material/TableRow'
 
 const Home = (props) => {
   const fetchedData = props.allMarketData.map((el, key) => {
-    console.log(el)
-    return true
-    // return (
-    //   <>
-    //     <CoinRowItem
-    //       key={key}
-    //       tokenName={el[0].name}
-    //       tokenId={el[0].id}
-    //       symbol={el[0].symbol}
-    //       currentPrice={el[0].current_price}
-    //       marketCap={el[0].market_cap}
-    //       mCapRank={el[0].market_cap_rank}
-    //       change24h={el[0].price_change_percentage_24h}
-    //       volume={el[0].total_volume}
-    //       circSupply={el[0].circulating_supply}
-    //       watchlist={props.watchlist}
-    //       setWatchlist={props.setWatchlist}
-    //     />
-    //   </>
-    // )
+    // console.log('fetchedData: ', el)
+    return (
+      <>
+        <CoinRowItem
+          key={key}
+          tokenName={el[0].name}
+          tokenId={el[0].id}
+          symbol={el[0].symbol}
+          currentPrice={el[0].current_price}
+          marketCap={el[0].market_cap}
+          mCapRank={el[0].market_cap_rank}
+          change24h={el[0].price_change_percentage_24h}
+          volume={el[0].total_volume}
+          circSupply={el[0].circulating_supply}
+          watchlist={props.watchlist}
+          setWatchlist={props.setWatchlist}
+        />
+      </>
+    )
   })
 
   const filterList = props.coinList.filter((el) => !el.name.includes('%'))

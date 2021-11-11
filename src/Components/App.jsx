@@ -21,21 +21,36 @@ const App = () => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [watchlist, setWatchlist] = useState([])
 
-  const fetchAllMarketData = async () => {
-    let allData = []
+  const fetchInitialData = async () => {
+    const coinList = await fetchCoinList()
+    setCoinList(coinList)
+  }
+  const extractIDs = async () => {
+    await fetchInitialData()
+    console.log('extracting ids...')
+    console.log('coinlist: ', coinList)
+    let idArr = []
     for (let coin of coinList) {
+      console.log('coin: ', coin)
+    }
+  }
+  const fetchAllMarketData = async () => {
+    console.log('fetching market data')
+    let allData = []
+    for (let coin of dummyList) {
       const data = await fetchCoinMarketData(coin)
       allData.push(data)
     }
     setAllMarketData(allData)
+    console.log('done fetching market data')
   }
 
   useEffect(() => {
-    const fetchSample = async () => {
+    const main = async () => {
       if (await checkStatus()) {
         try {
-          const coinList = await fetchCoinList()
-          setCoinList(coinList)
+          // await fetchInitialData()
+          await extractIDs()
           await fetchAllMarketData()
           setIsLoaded(true)
         } catch (err) {
@@ -45,7 +60,7 @@ const App = () => {
         alert('API is down')
       }
     }
-    fetchSample()
+    main()
   }, [])
 
   return (
