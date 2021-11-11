@@ -22,8 +22,12 @@ const App = () => {
   const [watchlist, setWatchlist] = useState([])
 
   const fetchInitialData = async () => {
-    const coinList = await fetchCoinList()
-    setCoinList(coinList)
+    try {
+      const coinList = await fetchCoinList()
+      setCoinList(coinList)
+    } catch (err) {
+      console.log('failed to fetchInitalData with error: ', err)
+    }
   }
   const extractIDs = async () => {
     await fetchInitialData()

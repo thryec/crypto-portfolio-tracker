@@ -30,6 +30,7 @@ const CoinRowItem = (props) => {
         <TableCell>
           <Checkbox onClick={addToWatchlist} checked={checked} />
         </TableCell>
+        <TableCell>{props.mCapRank}</TableCell>
         <TableCell>
           <Link to={'/coin/' + props.tokenId}>{props.tokenName}</Link>
         </TableCell>

@@ -49,6 +49,7 @@ const Home = (props) => {
               <TableHead>
                 <TableRow>
                   <TableCell>Watchlist</TableCell>
+                  <TableCell>Rank</TableCell>
                   <TableCell>Name</TableCell>
                   <TableCell>Price</TableCell>
                   <TableCell>24h%</TableCell>

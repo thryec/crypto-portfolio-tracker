@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow'
 import { fetchCoinMarketData } from './fetchData'
 
 const Watchlist = (props) => {
-  const [watchlistData, setWatchlistData] = useState()
+  const [watchlistData, setWatchlistData] = useState([])
   const [dataFetched, setDataFetched] = useState(false)
 
   console.log('watchlist component:', props.watchlist)
@@ -24,20 +24,7 @@ const Watchlist = (props) => {
     setWatchlistData(data)
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await fetchWatchlistMarketData()
-        // await renderWatchlistData()
-        setDataFetched(true)
-      } catch (err) {
-        console.log('failed to fetch watchlist data with error: ', err)
-      }
-    }
-    fetchData()
-  }, [])
-
-  const renderWatchlistData = async () => {
+  const renderWatchlistData = () => {
     watchlistData.map((el, key) => (
       <CoinRowItem
         key={key}
@@ -54,6 +41,22 @@ const Watchlist = (props) => {
         setWatchlist={props.setWatchlist}
       />
     ))
+  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetchWatchlistMarketData()
+        await renderWatchlistData()
+        setDataFetched(true)
+      } catch (err) {
+        console.log('failed to fetch watchlist data with error: ', err)
+      }
+    }
+    fetchData()
+  }, [])
+
+  if (props.watchlist.length === 0) {
+    return <p>No items in watchlist</p>
   }
 
   return (
@@ -75,14 +78,13 @@ const Watchlist = (props) => {
             </TableHead>
             <TableBody>
               {dataFetched ? (
-                <h1>{renderWatchlistData}</h1>
+                <div>{renderWatchlistData()}</div>
               ) : (
-                <h1>Loading...</h1>
+                <p>Loading...</p>
               )}
             </TableBody>
           </Table>
         </TableContainer>
-        {/* {allCoins} */}
       </div>
     </>
   )
