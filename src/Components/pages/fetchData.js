@@ -5,6 +5,7 @@ const queries = {
   coinMarketData: 'coins/markets?vs_currency=usd&ids=',
   coinInfo: 'coins/',
   trending: 'search/trending',
+  events: 'events',
 }
 
 export const checkStatus = async () => {
@@ -34,8 +35,14 @@ export const fetchCoinInfo = async (coin) => {
   return data
 }
 
-export const fetchTrendingCoins = async (coin) => {
+export const fetchTrendingCoins = async () => {
   const res = await fetch(API + queries.trending)
+  const data = await res.json()
+  return data
+}
+
+export const fetchEvents = async () => {
+  const res = await fetch(API + queries.events)
   const data = await res.json()
   return data
 }

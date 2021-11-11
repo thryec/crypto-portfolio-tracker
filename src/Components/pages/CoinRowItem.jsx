@@ -2,13 +2,21 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
-import Button from '@mui/material/Button'
+import Checkbox from '@mui/material/Checkbox'
 
 const CoinRowItem = (props) => {
-  // console.log('CoinRowItem props: ', props)
+  const [checked, setChecked] = useState(false)
 
-  const addToWatchlist = () => {
+  const addToWatchlist = (event) => {
     console.log('watchlist button clicked', props.tokenId)
+    if (event.target.checked) {
+      console.log('is checked ', event.target.checked)
+      setChecked(true)
+    } else {
+      setChecked(false)
+      console.log('is not checked ', event.target.checked)
+    }
+
     if (props.watchlist.includes(props.tokenId)) {
       return
     } else {
@@ -20,7 +28,7 @@ const CoinRowItem = (props) => {
     <>
       <TableRow>
         <TableCell>
-          <Button onClick={addToWatchlist}>Add</Button>
+          <Checkbox onClick={addToWatchlist} checked={checked} />
         </TableCell>
         <TableCell>
           <Link to={'/coin/' + props.tokenId}>{props.tokenName}</Link>
@@ -30,7 +38,8 @@ const CoinRowItem = (props) => {
         <TableCell>{props.marketCap}</TableCell>
         <TableCell>{props.volume}</TableCell>
         <TableCell>
-          {Math.floor(props.circSupply).toLocaleString()} {props.symbol}
+          {Math.floor(props.circSupply).toLocaleString()}{' '}
+          {props.symbol.toUpperCase()}
         </TableCell>
       </TableRow>
     </>
