@@ -68,6 +68,7 @@ const Watchlist = (props) => {
             <TableHead>
               <TableRow>
                 <TableCell>Watchlist</TableCell>
+                <TableCell>Rank</TableCell>
                 <TableCell>Name</TableCell>
                 <TableCell>Price</TableCell>
                 <TableCell>24h%</TableCell>
@@ -77,11 +78,7 @@ const Watchlist = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {dataFetched ? (
-                <div>{renderWatchlistData()}</div>
-              ) : (
-                <p>Loading...</p>
-              )}
+              {dataFetched ? renderWatchlistData() : <p>Loading...</p>}
             </TableBody>
           </Table>
         </TableContainer>

@@ -9,7 +9,6 @@ import TableRow from '@mui/material/TableRow'
 
 const Home = (props) => {
   const fetchedData = props.allMarketData.map((el, key) => {
-    // console.log('fetchedData: ', el)
     return (
       <>
         <CoinRowItem
