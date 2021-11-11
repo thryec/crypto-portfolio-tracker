@@ -25,7 +25,7 @@ const Watchlist = (props) => {
   }
 
   const renderWatchlistData = () => {
-    watchlistData.map((el, key) => (
+    return watchlistData.map((el, key) => (
       <CoinRowItem
         key={key}
         tokenName={el[0].name}
@@ -46,7 +46,7 @@ const Watchlist = (props) => {
     const fetchData = async () => {
       try {
         await fetchWatchlistMarketData()
-        await renderWatchlistData()
+        renderWatchlistData()
         setDataFetched(true)
       } catch (err) {
         console.log('failed to fetch watchlist data with error: ', err)

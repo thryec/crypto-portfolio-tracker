@@ -1,32 +1,74 @@
 import { useState, useEffect } from 'react'
-import { fetchEvents, fetchTrendingCoins } from './fetchData'
-import CoinRowItem from './CoinRowItem'
+import {
+  fetchEvents,
+  fetchTrendingCoins,
+  fetchCoinMarketData,
+} from './fetchData'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Typography from '@mui/material/Typography'
+import { Button, CardActionArea, CardActions } from '@mui/material'
 
 const Newsfeed = () => {
-  const [events, setEvents] = useState([])
   const [trendingCoins, setTrendingCoins] = useState([])
+  const [events, setEvents] = useState([])
 
   const loadTrendingCoins = async () => {
-    console.log('fetching trending coins')
     const trendingData = await fetchTrendingCoins()
-    console.log('trending: ', trendingData.coins)
     setTrendingCoins(trendingData)
   }
 
-  const renderTrendingCoins = async () => {}
-
   const loadEvents = async () => {
-    console.log('fetching events')
     const eventsData = await fetchEvents()
-    console.log('events: ', eventsData)
-    setEvents(events)
+    setEvents(eventsData)
   }
 
-  const renderEvents = async () => {}
+  const renderTrendingCoins = async () => {
+    console.log('rendering trending: ', trendingCoins.coins)
+  }
+
+  const renderEvents = () => {
+    console.log('rendering events: ', events.data)
+    return events.data.map((el, key) => (
+      <Card sx={{ maxWidth: 345 }}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            height="140"
+            image="/static/images/cards/contemplative-reptile.jpg"
+            alt="green iguana"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              Lizard
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Lizards are a widespread group of squamate reptiles, with over
+              6,000 species, ranging across all continents except Antarctica
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button size="small" color="primary">
+            Share
+          </Button>
+        </CardActions>
+      </Card>
+    ))
+  }
 
   useEffect(() => {
-    loadEvents()
-    loadTrendingCoins()
+    const fetchInitialData = async () => {
+      await loadTrendingCoins()
+      await loadEvents()
+    }
+    const renderInitialData = async () => {
+      renderTrendingCoins()
+      renderEvents()
+    }
+    fetchInitialData()
+    renderInitialData()
   }, [])
 
   return (
@@ -37,7 +79,7 @@ const Newsfeed = () => {
       </div>
       <div>
         <h3>Upcoming Events</h3>
-        {JSON.stringify(events)}
+        {events ? renderEvents() : <p>No Events</p>}
       </div>
     </>
   )
