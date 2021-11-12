@@ -15,8 +15,9 @@ import {
 import Button from '@mui/material/Button'
 import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
+import RINKEBY_API_KEY from '../api.js'
 
-const dummyList = ['bitcoin', 'ethereum', 'cardano', 'solana', 'avalanche-2']
+const coinIDs = ['bitcoin', 'ethereum', 'cardano', 'solana', 'avalanche-2']
 
 const App = () => {
   const [coinList, setCoinList] = useState([])
@@ -26,9 +27,11 @@ const App = () => {
   const [wallet, setWallet] = useState('Connect Wallet')
   const [isConnected, setIsConnected] = useState('Connect Wallet')
 
+  const RINKEBY_API = `https://api-rinkeby.etherscan.io/api?address=${wallet}&apikey=${RINKEBY_API_KEY}`
+
   const fetchAllMarketData = async () => {
     let allData = []
-    for (let coin of dummyList) {
+    for (let coin of coinIDs) {
       const data = await fetchCoinMarketData(coin)
       allData.push(data)
     }

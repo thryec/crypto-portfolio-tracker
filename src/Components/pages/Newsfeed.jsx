@@ -31,7 +31,6 @@ const Newsfeed = () => {
   }
 
   const renderEvents = () => {
-    console.log('rendering events: ', events.data)
     if (isLoaded) {
       return events.data.map((el, key) => (
         <Card sx={{ maxWidth: 400 }}>
