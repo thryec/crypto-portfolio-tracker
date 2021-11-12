@@ -42,6 +42,7 @@ const Watchlist = (props) => {
       />
     ))
   }
+
   useEffect(() => {
     const fetchData = async () => {
       try {

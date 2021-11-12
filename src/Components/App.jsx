@@ -12,14 +12,19 @@ import {
   fetchCoinMarketData,
   fetchCoinList,
 } from './pages/fetchData'
+import Button from '@mui/material/Button'
+import { ethers } from 'ethers'
+import Web3Modal from 'web3modal'
 
-const dummyList = ['bitcoin', 'ethereum', 'cardano']
+const dummyList = ['bitcoin', 'ethereum', 'cardano', 'solana', 'avalanche-2']
 
 const App = () => {
   const [coinList, setCoinList] = useState([])
   const [allMarketData, setAllMarketData] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
   const [watchlist, setWatchlist] = useState([])
+  const [wallet, setWallet] = useState('Connect Wallet')
+  const [isConnected, setIsConnected] = useState('Connect Wallet')
 
   const fetchInitialData = async () => {
     try {
@@ -29,24 +34,37 @@ const App = () => {
       console.log('failed to fetchInitalData with error: ', err)
     }
   }
-  const extractIDs = async () => {
-    await fetchInitialData()
-    console.log('extracting ids...')
-    console.log('coinlist: ', coinList)
-    let idArr = []
-    for (let coin of coinList) {
-      console.log('coin: ', coin)
-    }
-  }
+  // const extractIDs = async () => {
+  //   await fetchInitialData()
+  //   console.log('extracting ids...')
+  //   console.log('coinlist: ', coinList)
+  //   let idArr = []
+  //   for (let coin of coinList) {
+  //     console.log('coin: ', coin)
+  //   }
+  // }
   const fetchAllMarketData = async () => {
-    console.log('fetching market data')
     let allData = []
     for (let coin of dummyList) {
       const data = await fetchCoinMarketData(coin)
       allData.push(data)
     }
     setAllMarketData(allData)
-    console.log('done fetching market data')
+  }
+
+  const connectWallet = async () => {
+    if (typeof window.ethereum !== 'undefined') {
+      console.log('MetaMask is installed!')
+      const web3Modal = new Web3Modal()
+      const connection = await web3Modal.connect()
+      const provider = new ethers.providers.Web3Provider(connection)
+      const signer = provider.getSigner()
+      const myAddress = await signer.getAddress()
+      setWallet(myAddress)
+      setIsConnected('Connected')
+    } else {
+      alert('Please Install Metamask!')
+    }
   }
 
   useEffect(() => {
@@ -54,7 +72,7 @@ const App = () => {
       if (await checkStatus()) {
         try {
           // await fetchInitialData()
-          await extractIDs()
+          // await extractIDs()
           await fetchAllMarketData()
           setIsLoaded(true)
         } catch (err) {
@@ -85,6 +103,9 @@ const App = () => {
         <Link to="/news">
           <h2>News</h2>
         </Link>
+        <Button onClick={connectWallet} maxWidth="50" variant="contained">
+          {isConnected}
+        </Button>
       </nav>
       <hr />
       <main>

@@ -9,10 +9,12 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { Button, CardActionArea, CardActions } from '@mui/material'
+import Stack from '@mui/material/Stack'
 
 const Newsfeed = () => {
   const [trendingCoins, setTrendingCoins] = useState([])
   const [events, setEvents] = useState([])
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const loadTrendingCoins = async () => {
     const trendingData = await fetchTrendingCoins()
@@ -30,56 +32,55 @@ const Newsfeed = () => {
 
   const renderEvents = () => {
     console.log('rendering events: ', events.data)
-    return events.data.map((el, key) => (
-      <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            height="140"
-            image="/static/images/cards/contemplative-reptile.jpg"
-            alt="green iguana"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-        </CardActions>
-      </Card>
-    ))
+    if (isLoaded) {
+      return events.data.map((el, key) => (
+        <Card sx={{ maxWidth: 400 }}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="140"
+              image={el.screenshot}
+              alt={el.title}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {el.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {el.description}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+          <CardActions>
+            <Button size="small" color="primary">
+              Share
+            </Button>
+          </CardActions>
+        </Card>
+      ))
+    }
   }
 
   useEffect(() => {
     const fetchInitialData = async () => {
       await loadTrendingCoins()
       await loadEvents()
-    }
-    const renderInitialData = async () => {
-      renderTrendingCoins()
-      renderEvents()
+      setIsLoaded(true)
     }
     fetchInitialData()
-    renderInitialData()
   }, [])
 
   return (
     <>
       <div>
         <h3>Trending Coins</h3>
-        {JSON.stringify(trendingCoins)}
+        {/* {JSON.stringify(trendingCoins)} */}
       </div>
       <div>
         <h3>Upcoming Events</h3>
-        {events ? renderEvents() : <p>No Events</p>}
+        <Stack spacing={2} direction="row">
+          {!events ? <p>No Events</p> : renderEvents()}
+        </Stack>
       </div>
     </>
   )
