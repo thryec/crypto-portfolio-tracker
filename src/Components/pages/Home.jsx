@@ -29,8 +29,6 @@ const Home = (props) => {
     )
   })
 
-  const filterList = props.coinList.filter((el) => !el.name.includes('%'))
-
   return (
     <>
       {props.isLoaded ? (

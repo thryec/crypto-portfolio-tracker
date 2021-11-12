@@ -7,11 +7,7 @@ import CoinInfo from './modules/CoinInfo'
 import Newsfeed from './pages/Newsfeed'
 import { useState, useEffect } from 'react'
 import { Route, Link, Routes, Navigate } from 'react-router-dom'
-import {
-  checkStatus,
-  fetchCoinMarketData,
-  fetchCoinList,
-} from './pages/fetchData'
+import { checkStatus, fetchCoinMarketData } from './pages/fetchData'
 import Button from '@mui/material/Button'
 import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
@@ -19,7 +15,6 @@ import Web3Modal from 'web3modal'
 const coinIDs = ['bitcoin', 'ethereum', 'cardano', 'solana', 'avalanche-2']
 
 const App = () => {
-  const [coinList, setCoinList] = useState([])
   const [allMarketData, setAllMarketData] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
   const [watchlist, setWatchlist] = useState([])
@@ -102,7 +97,6 @@ const App = () => {
             path="/"
             element={
               <Home
-                coinList={coinList}
                 allMarketData={allMarketData}
                 isLoaded={isLoaded}
                 watchlist={watchlist}
