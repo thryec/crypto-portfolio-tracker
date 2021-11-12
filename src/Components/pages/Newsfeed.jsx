@@ -33,7 +33,7 @@ const Newsfeed = () => {
   const renderEvents = () => {
     if (isLoaded) {
       return events.data.map((el, key) => (
-        <Card sx={{ maxWidth: 400 }}>
+        <Card key={key} sx={{ maxWidth: 400 }}>
           <CardActionArea>
             <CardMedia
               component="img"

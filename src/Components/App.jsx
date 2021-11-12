@@ -15,7 +15,6 @@ import {
 import Button from '@mui/material/Button'
 import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
-import RINKEBY_API_KEY from '../api.js'
 
 const coinIDs = ['bitcoin', 'ethereum', 'cardano', 'solana', 'avalanche-2']
 
@@ -24,10 +23,8 @@ const App = () => {
   const [allMarketData, setAllMarketData] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
   const [watchlist, setWatchlist] = useState([])
-  const [wallet, setWallet] = useState('Connect Wallet')
+  const [walletAddress, setWalletAddress] = useState(null)
   const [isConnected, setIsConnected] = useState('Connect Wallet')
-
-  const RINKEBY_API = `https://api-rinkeby.etherscan.io/api?address=${wallet}&apikey=${RINKEBY_API_KEY}`
 
   const fetchAllMarketData = async () => {
     let allData = []
@@ -46,12 +43,18 @@ const App = () => {
       const provider = new ethers.providers.Web3Provider(connection)
       const signer = provider.getSigner()
       const myAddress = await signer.getAddress()
-      setWallet(myAddress)
+      setWalletAddress(myAddress)
+      console.log('my address: ', myAddress)
       setIsConnected('Connected')
     } else {
       alert('Please Install Metamask!')
     }
   }
+
+  // const apiCall = async () => {
+  //   console.log('wallet address: ', walletAddress)
+  //   await fetchRinkebyData()
+  // }
 
   useEffect(() => {
     const main = async () => {
@@ -87,9 +90,10 @@ const App = () => {
         <Link to="/news">
           <h2>News</h2>
         </Link>
-        <Button onClick={connectWallet} maxWidth="50" variant="contained">
+        <Button onClick={connectWallet} variant="contained">
           {isConnected}
         </Button>
+        {/* <button onClick={apiCall}>Call API</button> */}
       </nav>
       <hr />
       <main>
@@ -111,7 +115,10 @@ const App = () => {
             path="/watchlist"
             element={<Watchlist watchlist={watchlist} />}
           />
-          <Route path="/portfolio" element={<Portfolio />} />
+          <Route
+            path="/portfolio"
+            element={<Portfolio walletAddress={walletAddress} />}
+          />
           <Route path="/charts" element={<Charts />} />
           <Route path="/coin/:name" element={<CoinInfo />} />
           <Route path="/news" element={<Newsfeed />} />
