@@ -26,23 +26,6 @@ const App = () => {
   const [wallet, setWallet] = useState('Connect Wallet')
   const [isConnected, setIsConnected] = useState('Connect Wallet')
 
-  const fetchInitialData = async () => {
-    try {
-      const coinList = await fetchCoinList()
-      setCoinList(coinList)
-    } catch (err) {
-      console.log('failed to fetchInitalData with error: ', err)
-    }
-  }
-  // const extractIDs = async () => {
-  //   await fetchInitialData()
-  //   console.log('extracting ids...')
-  //   console.log('coinlist: ', coinList)
-  //   let idArr = []
-  //   for (let coin of coinList) {
-  //     console.log('coin: ', coin)
-  //   }
-  // }
   const fetchAllMarketData = async () => {
     let allData = []
     for (let coin of dummyList) {
@@ -71,8 +54,6 @@ const App = () => {
     const main = async () => {
       if (await checkStatus()) {
         try {
-          // await fetchInitialData()
-          // await extractIDs()
           await fetchAllMarketData()
           setIsLoaded(true)
         } catch (err) {
