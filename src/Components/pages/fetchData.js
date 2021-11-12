@@ -2,6 +2,7 @@ import rinkeby from '../../rinkeby'
 
 // Rinkeby API Calls
 export const fetchEtherBalance = async (walletAddress) => {
+  console.log('wallet address: ', walletAddress, 'api key: ', rinkeby.apiKey)
   const res = await fetch(
     `https://api-rinkeby.etherscan.io/api?address=${walletAddress}&apikey=${rinkeby.apiKey}&module=account&action=balance`
   )
