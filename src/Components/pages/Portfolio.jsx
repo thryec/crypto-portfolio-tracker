@@ -44,11 +44,20 @@ const Portfolio = (props) => {
     setLinkPrice(linkPrice)
   }
 
+  const calculateTotalValue = async () => {
+    const ethValue = ethBalance * ethPrice
+    const linkValue = linkBalance * linkPrice
+    const totalValue = ethValue + linkValue
+    console.log('total: ', totalValue)
+    setUsdValue(totalValue)
+  }
+
   const getAllBalances = async () => {
     await getEthBalance()
     await getLinkBalance()
     await getEthPrice()
     await getLinkPrice()
+    await calculateTotalValue()
   }
 
   if (props.walletAddress === null) {
