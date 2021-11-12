@@ -30,13 +30,6 @@ const Home = (props) => {
   })
 
   const filterList = props.coinList.filter((el) => !el.name.includes('%'))
-  const allCoins = filterList.map((el, key) => {
-    return (
-      <div key={key}>
-        <CoinRowItem tokenName={el.name} tokenId={el.id} />
-      </div>
-    )
-  })
 
   return (
     <>
