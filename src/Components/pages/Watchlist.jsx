@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState } from 'react'
 import CoinRowItem from './CoinRowItem'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -12,11 +12,12 @@ const Watchlist = (props) => {
   const [watchlistData, setWatchlistData] = useState([])
   const [dataFetched, setDataFetched] = useState(false)
 
-  console.log('watchlist component:', props.watchlist)
+  const watchlistItems = JSON.parse(localStorage.getItem('watchlist'))
+  console.log('watchlist local storage:', watchlistItems)
 
   const fetchWatchlistMarketData = async () => {
     let data = []
-    for (let coin of props.watchlist) {
+    for (let coin of watchlistItems) {
       const newData = await fetchCoinMarketData(coin)
       data.push(newData)
       console.log('fetched data: ', coin, data)
@@ -37,7 +38,7 @@ const Watchlist = (props) => {
         change24h={el[0].price_change_percentage_24h}
         volume={el[0].total_volume}
         circSupply={el[0].circulating_supply}
-        watchlist={props.watchlist}
+        watchlist={watchlistItems}
         setWatchlist={props.setWatchlist}
       />
     ))
@@ -56,7 +57,7 @@ const Watchlist = (props) => {
     fetchData()
   }, [])
 
-  if (props.watchlist.length === 0) {
+  if (watchlistItems.length === 0) {
     return <p>No items in watchlist</p>
   }
 

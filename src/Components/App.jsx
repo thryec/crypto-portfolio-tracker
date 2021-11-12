@@ -21,6 +21,8 @@ const App = () => {
   const [walletAddress, setWalletAddress] = useState(null)
   const [isConnected, setIsConnected] = useState('Connect Wallet')
 
+  localStorage.setItem('watchlist', JSON.stringify(watchlist))
+
   const fetchAllMarketData = async () => {
     let allData = []
     for (let coin of coinIDs) {
@@ -45,11 +47,6 @@ const App = () => {
       alert('Please Install Metamask!')
     }
   }
-
-  // const apiCall = async () => {
-  //   console.log('wallet address: ', walletAddress)
-  //   await fetchRinkebyData()
-  // }
 
   useEffect(() => {
     const main = async () => {

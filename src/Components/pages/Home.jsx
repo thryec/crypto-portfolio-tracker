@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import CoinRowItem from './CoinRowItem'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
