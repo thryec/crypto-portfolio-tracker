@@ -11,7 +11,9 @@ const Portfolio = (props) => {
 
   const getEthBalance = async () => {
     const data = await fetchEtherBalance(props.walletAddress)
-    console.log(data)
+    const balance = ethers.utils.formatUnits(data.result, 'ether')
+    console.log('eth balance:', balance)
+    setEthBalance(balance)
   }
 
   const getLinkBalance = async () => {
@@ -19,12 +21,20 @@ const Portfolio = (props) => {
       props.walletAddress,
       rinkeby.linkContractAddress
     )
-    console.log(data)
+    const balance = ethers.utils.formatUnits(data.result, 'ether')
+    console.log('link balance: ', balance)
+    setLinkBalance(balance)
   }
+
+  const getEthPrice = async () => {}
+
+  const getLinkPrice = async () => {}
 
   const getAllBalances = async () => {
     await getEthBalance()
     await getLinkBalance()
+    await getEthPrice()
+    await getLinkPrice()
   }
 
   if (props.walletAddress === null) {
@@ -33,9 +43,9 @@ const Portfolio = (props) => {
   return (
     <>
       <Button onClick={getAllBalances}>Show Data</Button>
-      <h2>Portfolio Value: {usdValue} ETH</h2>
-      <div>Ethereum Balance: {ethBalance} LINK</div>
-      <div>Chainlink Balance: {linkBalance}</div>
+      <h2>Portfolio Value: {usdValue} USD </h2>
+      <div>Ethereum Balance: {ethBalance} ETH</div>
+      <div>Chainlink Balance: {linkBalance} LINK</div>
     </>
   )
 }

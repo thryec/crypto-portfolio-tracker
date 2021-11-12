@@ -2,12 +2,11 @@ import rinkeby from '../../rinkeby'
 
 // Rinkeby API Calls
 export const fetchEtherBalance = async (walletAddress) => {
-  console.log('wallet address: ', walletAddress, 'api key: ', rinkeby.apiKey)
+  // console.log('wallet address: ', walletAddress, 'api key: ', rinkeby.apiKey)
   const res = await fetch(
     `https://api-rinkeby.etherscan.io/api?address=${walletAddress}&apikey=${rinkeby.apiKey}&module=account&action=balance`
   )
   const data = await res.json()
-  console.log('rinkeby data: ', data)
   return data
 }
 
@@ -16,7 +15,6 @@ export const fetchERC20Balance = async (walletAddress, contractAddress) => {
     `https://api-rinkeby.etherscan.io/api?address=${walletAddress}&apikey=${rinkeby.apiKey}&contractaddress=${contractAddress}&module=account&action=tokenbalance&tag=latest`
   )
   const data = await res.json()
-  console.log('rinkeby data: ', data)
   return data
 }
 
