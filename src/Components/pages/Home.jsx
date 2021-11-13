@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { fetchTrendingCoins } from './fetchData'
+import { fetchTrendingCoins, fetchCoinMarketData } from './fetchData'
 import CoinRowItem from './CoinRowItem'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -11,41 +11,45 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
-import { Button, CardActions } from '@mui/material'
+import { Button, CardActions, CardActionArea } from '@mui/material'
 import Stack from '@mui/material/Stack'
 
 const Home = (props) => {
   const [trendingCoins, setTrendingCoins] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
+  const [btcPrice, setBtcPrice] = useState(0)
 
   const loadTrendingCoins = async () => {
     const trendingData = await fetchTrendingCoins()
     setTrendingCoins(trendingData)
   }
 
-  const renderTrendingCoins = async () => {
+  const getBtcPrice = async () => {
+    const data = await fetchCoinMarketData('bitcoin')
+    const price = data[0].current_price
+    setBtcPrice(price)
+  }
+
+  const goToCoin = () => {
+    console.log('coin clicked')
+  }
+
+  const renderTrendingCoins = () => {
     if (isLoaded) {
       return trendingCoins.coins.map((el, id) => (
-        <Card sx={{ maxWidth: 345 }}>
-          <CardMedia
-            component="img"
-            height="140"
-            image="/static/images/cards/contemplative-reptile.jpg"
-            alt="green iguana"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all
-              continents except Antarctica
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Share</Button>
-            <Button size="small">Learn More</Button>
-          </CardActions>
+        <Card key={id} sx={{ maxWidth: 400, maxHeight: 280 }}>
+          <CardActionArea onClick={goToCoin}>
+            <CardMedia component="img" height="140" image={el.item.large} alt="green iguana" />
+            <CardContent>
+              <Typography gutterBottom variant="h6" component="div">
+                {el.item.name}
+              </Typography>
+              <Typography variant="subtitle2" color="text.secondary">
+                <p> Market Cap: # {el.item.market_cap_rank} </p>
+                <p> Price: $ {Math.floor(el.item.price_btc * btcPrice * 100) / 100} </p>
+              </Typography>
+            </CardContent>
+          </CardActionArea>
         </Card>
       ))
     }
@@ -54,6 +58,7 @@ const Home = (props) => {
   useEffect(() => {
     const fetchInitialData = async () => {
       await loadTrendingCoins()
+      await getBtcPrice()
       setIsLoaded(true)
     }
     fetchInitialData()
@@ -85,13 +90,12 @@ const Home = (props) => {
       {props.isLoaded ? (
         <div>
           <div>
-            <h3>🔥 Trending 🔥</h3>
-            <Button>render coins</Button>
+            <h2>🔥 Trending 🔥</h2>
             <Stack spacing={2} direction="row">
               {isLoaded ? renderTrendingCoins() : <p>No Trending Coins</p>}
             </Stack>
           </div>
-          <h3>All Coins</h3>
+          <h2>All Coins</h2>
           <TableContainer>
             <Table>
               <TableHead>
@@ -112,7 +116,7 @@ const Home = (props) => {
           {/* {allCoins} */}
         </div>
       ) : (
-        <h1> Loading... </h1>
+        <p> Loading... </p>
       )}
     </>
   )
