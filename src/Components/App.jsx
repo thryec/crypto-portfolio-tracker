@@ -85,7 +85,6 @@ const App = () => {
         <Button onClick={connectWallet} variant="contained">
           {isConnected}
         </Button>
-        {/* <button onClick={apiCall}>Call API</button> */}
       </nav>
       <hr />
       <main>
