@@ -101,14 +101,8 @@ const App = () => {
             }
           />
           <Route path="/*" element={<Navigate to="/" />} />
-          <Route
-            path="/watchlist"
-            element={<Watchlist watchlist={watchlist} />}
-          />
-          <Route
-            path="/portfolio"
-            element={<Portfolio walletAddress={walletAddress} />}
-          />
+          <Route path="/watchlist" element={<Watchlist watchlist={watchlist} />} />
+          <Route path="/portfolio" element={<Portfolio walletAddress={walletAddress} />} />
           <Route path="/charts" element={<Charts />} />
           <Route path="/coin/:name" element={<CoinInfo />} />
           <Route path="/news" element={<Newsfeed />} />

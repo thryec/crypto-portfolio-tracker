@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react'
 import rinkeby from '../../rinkeby.js'
 import { ethers } from 'ethers'
-import {
-  fetchEtherBalance,
-  fetchERC20Balance,
-  fetchCoinMarketData,
-} from './fetchData'
+import { fetchEtherBalance, fetchERC20Balance, fetchCoinMarketData } from './fetchData'
 import Button from '@mui/material/Button'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -28,10 +24,7 @@ const Portfolio = (props) => {
   }
 
   const getLinkBalance = async () => {
-    const data = await fetchERC20Balance(
-      props.walletAddress,
-      rinkeby.linkContractAddress
-    )
+    const data = await fetchERC20Balance(props.walletAddress, rinkeby.linkContractAddress)
     const balance = ethers.utils.formatUnits(data.result, 'ether')
     const rounded = Math.round(balance * 10) / 10
     setLinkBalance(rounded)
@@ -56,9 +49,12 @@ const Portfolio = (props) => {
     await getLinkPrice()
   }
 
-  // useEffect(() => {
-  //   getAllBalances()
-  // }, [])
+  useEffect(() => {
+    // const getData = async () => {
+    //   await getAllBalances()
+    // }
+    // getData()
+  }, [])
 
   if (props.walletAddress === null) {
     return <>Please Connect your Metamask Wallet</>
@@ -66,12 +62,7 @@ const Portfolio = (props) => {
   return (
     <>
       <Button onClick={getAllBalances}>Show Data</Button>
-      <h2>
-        Portfolio Value:{' '}
-        {Math.round((ethBalance * ethPrice + linkBalance * linkPrice) * 100) /
-          100}{' '}
-        USD
-      </h2>
+      <h2>Portfolio Value: {Math.round((ethBalance * ethPrice + linkBalance * linkPrice) * 100) / 100} USD</h2>
       <TableContainer>
         <Table>
           <TableHead>
@@ -87,9 +78,7 @@ const Portfolio = (props) => {
               <TableCell>ETH</TableCell>
               <TableCell>{ethBalance}</TableCell>
               <TableCell>{ethPrice}</TableCell>
-              <TableCell>
-                {Math.round(ethBalance * ethPrice * 100) / 100}
-              </TableCell>
+              <TableCell>{Math.round(ethBalance * ethPrice * 100) / 100}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>LINK</TableCell>
