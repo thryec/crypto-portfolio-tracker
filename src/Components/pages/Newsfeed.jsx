@@ -22,9 +22,9 @@ const Newsfeed = () => {
   const renderEvents = () => {
     if (isLoaded) {
       return events.data.map((el, key) => (
-        <Card key={key} sx={{ maxWidth: 300 }}>
+        <Card key={key} sx={{ maxWidth: 500 }}>
           <CardActionArea>
-            <CardMedia component="img" height="120" image={el.screenshot} alt={el.title} />
+            <CardMedia component="img" height="200" image={el.screenshot} alt={el.title} />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 {el.title}
@@ -47,15 +47,15 @@ const Newsfeed = () => {
   const fetchNews = async () => {
     const res = await fetch(newsAPI)
     const data = await res.json()
-    // console.log('news data: ', data.data)
     setNews(data.data)
+    // console.log('news data: ', data.data)
   }
 
   const renderNews = () => {
     if (isLoaded) {
       return news.map((el, key) => (
         <Card key={key} sx={{ maxWidth: 700 }}>
-          <CardActionArea>
+          <CardActionArea href={el.news_url}>
             <CardMedia component="img" height="200" image={el.image_url} alt={el.title} />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
@@ -66,11 +66,6 @@ const Newsfeed = () => {
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Share
-            </Button>
-          </CardActions>
         </Card>
       ))
     }
@@ -88,12 +83,16 @@ const Newsfeed = () => {
   return (
     <>
       <div>
-        {/* <Stack spacing={2} direction="row"> */}
-        {!news ? <p>No News</p> : renderNews()}
-        {/* </Stack> */}
-        <h3>Upcoming Events</h3>
-        <Stack spacing={2} direction="row">
-          {!events ? <p>No Events</p> : renderEvents()}
+        <Stack spacing={18} direction="row">
+          <div>
+            <h3>Latest News</h3>
+            {!news ? <p>No News</p> : renderNews()}
+          </div>
+          <div>
+            <h3>Upcoming Events</h3>
+
+            {!events ? <p>No Events</p> : renderEvents()}
+          </div>
         </Stack>
       </div>
     </>
