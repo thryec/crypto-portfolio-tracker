@@ -12,7 +12,7 @@ import Button from '@mui/material/Button'
 import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
 
-const coinIDs = ['bitcoin', 'ethereum', 'cardano', 'solana', 'avalanche-2']
+const coinIDs = ['bitcoin', 'ethereum', 'cardano', 'solana', 'avalanche-2', 'terra-luna']
 
 const App = () => {
   const [allMarketData, setAllMarketData] = useState([])
