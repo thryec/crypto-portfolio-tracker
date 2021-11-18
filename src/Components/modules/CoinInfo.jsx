@@ -15,7 +15,7 @@ const Coin = () => {
   const [coinNews, setCoinNews] = useState([])
 
   const newsAPI1 = 'https://cryptonews-api.com/api/v1?tickers='
-  const newsAPI2 = '&items=50&token=isa4mz5oj4ypxo7eedcv1vjesqahx9rftufg2ktz'
+  const newsAPI2 = '&items=50&token=ekvr5cmd3gepqtufjsimcqe7wzrcztreys2dkcse'
 
   // console.log('info page params: ', params)
 

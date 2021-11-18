@@ -8,7 +8,7 @@ import { Button, CardActionArea, CardActions } from '@mui/material'
 import Stack from '@mui/material/Stack'
 
 const newsAPI =
-  'https://cryptonews-api.com/api/v1/category?section=general&items=50&token=isa4mz5oj4ypxo7eedcv1vjesqahx9rftufg2ktz'
+  'https://cryptonews-api.com/api/v1/category?section=general&items=50&token=ekvr5cmd3gepqtufjsimcqe7wzrcztreys2dkcse'
 
 const Newsfeed = () => {
   const [events, setEvents] = useState([])
@@ -73,9 +73,14 @@ const Newsfeed = () => {
 
   useEffect(() => {
     const fetchInitialData = async () => {
-      await loadEvents()
-      await fetchNews()
-      setIsLoaded(true)
+      try {
+        await loadEvents()
+        await fetchNews()
+        setIsLoaded(true)
+      } catch (err) {
+        console.log('failed to load news with error: ', err)
+        alert('Failed to fetch news.')
+      }
     }
     fetchInitialData()
   }, [])
