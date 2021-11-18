@@ -45,8 +45,8 @@ const Home = (props) => {
                 {el.item.name}
               </Typography>
               <Typography variant="subtitle2" color="text.secondary">
-                <p> Market Cap: # {el.item.market_cap_rank} </p>
-                <p> Price: $ {Math.floor(el.item.price_btc * btcPrice * 100) / 100} </p>
+                <div> Market Cap: # {el.item.market_cap_rank} </div>
+                <div> Price: $ {Math.floor(el.item.price_btc * btcPrice * 100) / 100} </div>
               </Typography>
             </CardContent>
           </CardActionArea>

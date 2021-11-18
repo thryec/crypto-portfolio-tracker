@@ -6,29 +6,28 @@ One Paragraph of project description goes here
 
 A description of your project. Explain what is the project about and what is the use for it.
 
-### Technical Used
-
-What technologies you used that helped you build this project.
+### Technologies Used
 
 ```
-Example:
-
 - React
-- Bootstrap with react
-- Ajax (axios) for API
-- etc..
+- React Router
+- Material UI
+- Metamask - Ethereum Wallet
+- Ethers.js - Web3 library
+
 ```
 
-### Wireframes
+## APIs Used
 
-Your step by step planning sketch of your project, that you can post them as an image in here.
+- Coingecko API - to query cryptocurrency prices and market data
+- Etherscan API - to query user's token balance
+- Crypto News API - to query
 
 ### User Stories
 
 A story of the project user, that explains the use of the project.
 
 ```
-Example:
 
 User must be able to:
 
@@ -50,16 +49,4 @@ A basic story of your planning and developing this project.
 
 What strategy did you use to solve your problems.
 
-### Unsolved problems
-
-List unsolved problems which would be fixed in future iterations.
-
-## APIs Used
-
-List your APIs you have used in this project and explain why did you use it.
-
----
-
-# Daily Progress
-
-- 3 Nov: Basic functions to fetch API data + Router scaffolding.
+### Future Improvements
