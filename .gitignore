@@ -24,3 +24,5 @@ yarn-error.log*
 
 # rinkeby
 rinkeby.js 
+# Local Netlify folder
+.netlify
