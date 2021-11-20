@@ -58,7 +58,7 @@ const Portfolio = (props) => {
       }
     }
     getData()
-  })
+  }, [props.walletAddress])
 
   if (props.walletAddress === null) {
     return <>Please Connect your Metamask Wallet</>
@@ -66,7 +66,7 @@ const Portfolio = (props) => {
 
   return (
     <>
-      <Button onClick={getAllBalances}>Show Data</Button>
+      {/* <Button onClick={getAllBalances}>Show Data</Button> */}
       <h2>Portfolio Value: {Math.round((ethBalance * ethPrice + linkBalance * linkPrice) * 100) / 100} USD</h2>
       <TableContainer>
         <Table>
