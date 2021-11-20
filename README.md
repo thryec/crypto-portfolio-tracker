@@ -1,4 +1,4 @@
-# Your Project Title
+# Crypto Portfolio Tracker
 
 One Paragraph of project description goes here
 
@@ -14,28 +14,26 @@ A description of your project. Explain what is the project about and what is the
 - Material UI
 - Metamask - Ethereum Wallet
 - Ethers.js - Web3 library
+- Web3Modal - Connect cryptocurreny wallet to App
 
 ```
 
 ## APIs Used
 
 - Coingecko API - to query cryptocurrency prices and market data
-- Etherscan API - to query user's token balance
-- Crypto News API - to query
+- Etherscan Rinkeby API - to query user's token balance on the Rinkeby testnet
+- Crypto News API - to query for crypto news
 
 ### User Stories
-
-A story of the project user, that explains the use of the project.
 
 ```
 
 User must be able to:
 
-- View Example
-- Blablabla
-- Search Example
-- Fine Example
-- etc..
+- View list of coins and their updated information on the Home Page.
+- Connect their Metamask Wallet to the site to view wallet balances.
+- Select individual coins to view detailed info and specific news.
+- View crypto-related news and events in the Newsfeed tab.
 
 ```
 

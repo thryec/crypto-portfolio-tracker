@@ -18,13 +18,13 @@ const coinIDs = [
   'solana',
   'avalanche-2',
   'terra-luna',
-  'metahero',
   'matic-network',
   'sushi',
   'aave',
+  'olympus',
   'wonderland',
   'klima-dao',
-  'olympus',
+  'metahero',
   'snowbank',
 ]
 
@@ -48,7 +48,7 @@ const App = () => {
 
   const connectWallet = async () => {
     if (typeof window.ethereum !== 'undefined') {
-      console.log('MetaMask is installed!')
+      console.log('MetaMask is present')
       const web3Modal = new Web3Modal()
       const connection = await web3Modal.connect()
       const provider = new ethers.providers.Web3Provider(connection)

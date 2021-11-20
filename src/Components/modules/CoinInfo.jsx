@@ -60,7 +60,7 @@ const Coin = () => {
 
   useEffect(() => {
     getCoinInfo()
-  }, [])
+  })
 
   return (
     <>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { fetchEvents, fetchTrendingCoins } from './fetchData'
+import { fetchEvents } from './fetchData'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'

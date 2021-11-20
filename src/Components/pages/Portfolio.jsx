@@ -50,15 +50,20 @@ const Portfolio = (props) => {
   }
 
   useEffect(() => {
-    // const getData = async () => {
-    //   await getAllBalances()
-    // }
-    // getData()
-  }, [])
+    const getData = async () => {
+      if (props.walletAddress) {
+        await getAllBalances()
+      } else {
+        console.log('no wallet connected')
+      }
+    }
+    getData()
+  })
 
   if (props.walletAddress === null) {
     return <>Please Connect your Metamask Wallet</>
   }
+
   return (
     <>
       <Button onClick={getAllBalances}>Show Data</Button>
